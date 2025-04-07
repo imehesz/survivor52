@@ -294,7 +294,7 @@ resolveCardEffect(card) {
             return; // Stop further processing
         }
         if (this.danger >= 10) {
-            this.gameOver(false, "Danger overwhelmed you!");
+            this.gameOver(false, "Danger \r\n overwhelmed you!");
             return; // Stop further processing
         }
         if (this.turn >= 52 && this.deck.length === 0) {
