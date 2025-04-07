@@ -1,7 +1,7 @@
 // Inside js/main.js
 const gameConfig = {
     appInfo: {
-        title: 'Survivor:52 - BASIC',
+        title: 'Survivor: 52 - BASIC',
         version: '0.1.{{VERSION}}',
         author: 'Imre Mehesz',
         description: 'A simple card game prototype exploring resource management and chance.',
