@@ -13,6 +13,8 @@ class UIScene extends Phaser.Scene {
         this.logScrollY = 0;         // Current vertical scroll position of the log text
         this.logBackground = null;   // Reference to the background rectangle
         // --------------------
+        
+        this.confirmationContainer = null;
     }
 
     // init(data) remains the same...
@@ -30,7 +32,9 @@ class UIScene extends Phaser.Scene {
         const topY = padding;
         const bottomY = this.cameras.main.height - padding;
         const centerX = this.cameras.main.width / 2;
+        const centerY = this.cameras.main.height / 2;  
         const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
 
         this.logHistory = [];
 
@@ -130,11 +134,57 @@ class UIScene extends Phaser.Scene {
         const restartButtonStyle = { ...bottomButtonStyle, backgroundColor: '#dc3545' };
 
         this.restartButton = this.createButton(width - padding, bottomButtonY, 'Restart Game', restartButtonStyle, () => {
+            if (this.confirmationContainer) {
+                this.confirmationContainer.setVisible(true).setActive(true);
+            }
+        }).setOrigin(1, 0.5);
+        this.setButtonHover(this.restartButton, '#c82333', restartButtonStyle.backgroundColor, secondaryButtonStyle);
+
+        // --- CREATE CONFIRMATION DIALOG (Initially Hidden) ---
+        this.confirmationContainer = this.add.container(0, 0).setVisible(false).setActive(false);
+        this.confirmationContainer.setDepth(100); // Ensure it's drawn on top
+
+        // Dimming Overlay
+        const overlay = this.add.rectangle(0, 0, width, height, 0x000000, 0.6) // Black with 60% alpha
+            .setOrigin(0, 0)
+            .setInteractive(); // Block clicks below
+        overlay.on('pointerdown', () => {}); // Consume clicks on the overlay
+
+        // Dialog Box Panel
+        const dialogWidth = width * 0.7;
+        const dialogHeight = height * 0.25;
+        const dialogPanel = this.add.rectangle(centerX, centerY, dialogWidth, dialogHeight, 0xffffff) // White panel
+            .setStrokeStyle(2, 0x333333); // Dark border
+
+        // Confirmation Text
+        const confirmText = this.add.text(centerX, centerY - dialogHeight * 0.2, 'Are you sure?', {
+            fontSize: '24px', fontFamily: 'Arial', color: '#333333', align: 'center'
+        }).setOrigin(0.5);
+
+        // Confirmation Buttons Styles
+        const yesButtonStyle = { ...buttonStyle, backgroundColor: '#28a745', fontSize: '20px' }; // Green Yes
+        const noButtonStyle = { ...buttonStyle, backgroundColor: '#dc3545', fontSize: '20px' }; // Red No
+
+        // YES Button
+        const yesButton = this.createButton(centerX - dialogWidth * 0.25, centerY + dialogHeight * 0.2, 'Yes', yesButtonStyle, () => {
+            // Perform the actual restart action
+            this.confirmationContainer.setVisible(false).setActive(false); // Hide dialog first
             this.scene.stop('GameScene');
             this.scene.stop('UIScene'); // Stop self
             this.scene.start('WelcomeScene');
-        }).setOrigin(1, 0.5);
-        this.setButtonHover(this.restartButton, '#c82333', restartButtonStyle.backgroundColor, secondaryButtonStyle);
+        }).setOrigin(0.5);
+        this.setButtonHover(yesButton, '#218838', yesButtonStyle.backgroundColor, yesButtonStyle);
+
+        // NO Button
+        const noButton = this.createButton(centerX + dialogWidth * 0.25, centerY + dialogHeight * 0.2, 'No', noButtonStyle, () => {
+            // Just hide the confirmation dialog
+            this.confirmationContainer.setVisible(false).setActive(false);
+        }).setOrigin(0.5);
+        this.setButtonHover(noButton, '#c82333', noButtonStyle.backgroundColor, noButtonStyle);
+
+        // Add elements to the container
+        this.confirmationContainer.add([overlay, dialogPanel, confirmText, yesButton, noButton]);
+        // --- END CONFIRMATION DIALOG ---
 
 
         // --- Event Listeners from GameScene (remain the same) ---
