@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Survivor: 52</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Ensure canvas fits mobile screens better */
+        canvas {
+            display: block;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <!-- Load Utilities First -->
+    <script src="js/utils/DeckUtils.js"></script>
+    <!-- Load Scenes -->
+    <script src="js/scenes/WelcomeScene.js"></script>
+    <script src="js/scenes/HowToPlayScene.js"></script>
+    <script src="js/scenes/AboutScene.js"></script>
+    <script src="js/scenes/UIScene.js"></script>
+    <script src="js/scenes/GameOverScene.js"></script>
+    <script src="js/scenes/GameScene.js"></script> <!-- GameScene needs UIScene etc. defined -->
+    <!-- Load Main Game Config -->
+    <script src="js/main.js"></script>
+</body>
+</html>
