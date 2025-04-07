@@ -4,7 +4,7 @@ const gameConfig = {
     scale: {
         mode: Phaser.Scale.FIT, // Fit to window keeping aspect ratio
         parent: 'game-container', // Target the container div
-        autoCenter: Phaser.Scale.CENTER_BOTH, // Tell Phaser to center within the parent
+        autoCenter: Phaser.Scale.NONE, // Tell Phaser to center within the parent
         width: 480,  // Portrait aspect ratio
         height: 800
     },
