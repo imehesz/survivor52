@@ -1,0 +1,2 @@
+deployScriptPROD.sh
+rsync_exclude.txt
