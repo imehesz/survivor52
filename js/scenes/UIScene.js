@@ -45,8 +45,8 @@ class UIScene extends Phaser.Scene {
         this.deckText = this.add.text(centerX, topY + 25, 'Deck: 52', { fontSize: '16px', fontFamily: 'Arial', color: '#555555' }).setOrigin(0.5, 0);
 
         // --- Current Card Area (remains the same) ---
-        const cardAreaHeight = 200;
-        const cardAreaWidth = 150;
+        const cardAreaHeight = 400;
+        const cardAreaWidth = 250;
         const cardAreaY = 80;
         this.cardOutline = this.add.rectangle(centerX, cardAreaY + cardAreaHeight / 2, cardAreaWidth, cardAreaHeight)
             .setStrokeStyle(2, 0x000000)
@@ -87,8 +87,8 @@ class UIScene extends Phaser.Scene {
 
 
         // --- Log Message Area (Setup for Scrolling) ---
-        const logAreaTopY = buttonY + 65; // Y position for the top of the log area
-        const logAreaHeight = 150; // Make it taller for scrolling
+        const logAreaTopY = buttonY + 40; // Y position for the top of the log area
+        const logAreaHeight = 180; // Make it taller for scrolling
         const logAreaWidth = width - padding * 2;
         const logAreaX = padding;
 
@@ -129,7 +129,7 @@ class UIScene extends Phaser.Scene {
 
 
         // --- Bottom Buttons (Adjusted Y) ---
-        const bottomButtonY = logAreaTopY + logAreaHeight + 40; // Position below log area
+        const bottomButtonY = height - 30 //logAreaTopY + logAreaHeight + 40; // Position below log area
         const bottomButtonStyle = { fontSize: '20px', fontFamily: 'Arial', color: '#ffffff', backgroundColor: '#6c757d', padding: { x: 10, y: 5 }, align: 'center' };
         const restartButtonStyle = { ...bottomButtonStyle, backgroundColor: '#dc3545' };
 

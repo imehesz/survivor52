@@ -13,6 +13,13 @@ class WelcomeScene extends Phaser.Scene {
         const centerX = this.cameras.main.width / 2;
         const centerY = this.cameras.main.height / 2;
 
+        if (!this.scene.isActive('FooterScene')) {
+            this.scene.launch('FooterScene');
+            console.log("Launched FooterScene"); // For debugging
+        } else {
+             console.log("FooterScene already active"); // For debugging
+        }
+
         // Title
         this.add.text(centerX, centerY - 200, 'Survivor: 52', {
             fontSize: '48px',
@@ -67,5 +74,8 @@ class WelcomeScene extends Phaser.Scene {
         aboutButton.on('pointerover', () => aboutButton.setBackgroundColor('#777777'));
         aboutButton.on('pointerout', () => aboutButton.setBackgroundColor('#555555'));
 
+        // setting registry entries
+        this.game.registry.set('gameTitle', gameConfig.appInfo.title)
+        this.game.registry.set('gameVersion', gameConfig.appInfo.version)
     }
 }
